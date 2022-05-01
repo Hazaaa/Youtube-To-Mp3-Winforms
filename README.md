@@ -1,7 +1,7 @@
 # YouTube To Mp3
 "YouTube To Mp3" is desktop application for converting 'YouTube' and 'YouTube Music' videos to Mp3 developed in .Net 6 and Winforms.
 
-**NOTICE:** This is just me working and experimenting with .Net 6 and different libraries. This app will not be used for anything else except leveling up my coding skills and increasing my knowledge of .Net Core.
+**NOTICE:** This is just me working and experimenting with .Net 6 and different libraries. This app will not be used for anything except leveling up my coding skills and increasing my knowledge of .Net Core.
 
 ## Requirements
  - This app is developed in .Net 6 so to run it you will need [.Net 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).  
