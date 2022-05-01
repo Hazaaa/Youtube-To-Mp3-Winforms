@@ -13,6 +13,8 @@
  - For converting this app is using [FFmpeg](https://ffmpeg.org/download.html) so you will have to download it and place just ffmpeg.exe and place it inside of Resources folder of the app.  
 
 ## TODO's:
+ - Create installer.
+ - Add tests.
  - Show video thumbnail (and maybe set it as cover).
  - Add options for bit rates.
  - Add option for converting to different formats not just mp3.
