@@ -59,8 +59,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lblAudioSizeText = new System.Windows.Forms.Label();
             this.lblAudioSize = new System.Windows.Forms.Label();
+            this.pbxThumbnail = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxInternetConnection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxThumbnail)).BeginInit();
             this.SuspendLayout();
             // 
             // lblUrl
@@ -355,12 +357,23 @@
             this.lblAudioSize.Text = "Size:";
             this.lblAudioSize.Visible = false;
             // 
+            // pbxThumbnail
+            // 
+            this.pbxThumbnail.Location = new System.Drawing.Point(545, 231);
+            this.pbxThumbnail.Name = "pbxThumbnail";
+            this.pbxThumbnail.Size = new System.Drawing.Size(150, 150);
+            this.pbxThumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxThumbnail.TabIndex = 29;
+            this.pbxThumbnail.TabStop = false;
+            this.pbxThumbnail.Visible = false;
+            // 
             // MainScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(714, 432);
+            this.Controls.Add(this.pbxThumbnail);
             this.Controls.Add(this.lblAudioSizeText);
             this.Controls.Add(this.lblAudioSize);
             this.Controls.Add(this.label5);
@@ -395,6 +408,7 @@
             this.Text = "YouTube To Mp3";
             ((System.ComponentModel.ISupportInitialize)(this.pbxInternetConnection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxThumbnail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,5 +445,6 @@
         private Label label5;
         private Label lblAudioSizeText;
         private Label lblAudioSize;
+        private PictureBox pbxThumbnail;
     }
 }

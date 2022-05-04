@@ -26,7 +26,7 @@ public class ConverterService
 
             if (!videoDownloadResult.DownloadSuccessful)
             {
-                return new VideoConvertResult(false, "", ErrorMessage: videoDownloadResult.ErrorMessage);
+                return new VideoConvertResult(false, "", "", ErrorMessage: videoDownloadResult.ErrorMessage);
             }
 
             var mp3SavePath = $@"{savePath}\{videoDownloadResult.VideoTitle}.mp3";
@@ -36,16 +36,16 @@ public class ConverterService
             if (!File.Exists(mp3SavePath))
             {
                 DeleteDownloadedVideo(videoDownloadResult.VideoPath);
-                return new VideoConvertResult(false, "", "There was an error while trying to convert YouTube video! Please check video Url and try again!");
+                return new VideoConvertResult(false, "", "", "There was an error while trying to convert YouTube video! Please check video Url and try again!");
             }
 
             DeleteDownloadedVideo(videoDownloadResult.VideoPath);
 
-            return new VideoConvertResult(true, FilePath: mp3SavePath, "");
+            return new VideoConvertResult(true, FilePath: mp3SavePath, FileThumbnailUrl: videoDownloadResult.VideoThumbnailUrl, "");
         }
         catch (Exception ex)
         {
-            return new VideoConvertResult(false, "", $"There was an error while trying to convert YouTube video to mp3! Additional info: {ex.Message}");
+            return new VideoConvertResult(false, "", "", $"There was an error while trying to convert YouTube video to mp3! Additional info: {ex.Message}");
         }
     }
 

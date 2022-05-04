@@ -26,7 +26,7 @@ internal class DownloadService
 
             if (videoMetadata == null)
             {
-                return new VideoDownloadResult(false, "", "", "There was an error while trying to download YouTube video! Please check video Url and try again!");
+                return new VideoDownloadResult(false, "", "", "", "There was an error while trying to download YouTube video! Please check video Url and try again!");
             }
 
             var videoSavePath = $@"{savePath}\{videoMetadata.Title}.mp4";
@@ -41,11 +41,14 @@ internal class DownloadService
 
             bool fileExists = File.Exists(videoSavePath);
 
-            return new VideoDownloadResult(DownloadSuccessful: fileExists, VideoTitle: videoMetadata.Title, VideoPath: videoSavePath, ErrorMessage: !fileExists ? "There was an error while trying to download video!" : "");
+            // Getting additional metadata.
+            var bestThumbnailUrl = videoMetadata.Thumbnails.OrderByDescending(thumb => thumb.Resolution.Area).FirstOrDefault()?.Url;
+
+            return new VideoDownloadResult(DownloadSuccessful: fileExists, VideoTitle: videoMetadata.Title, VideoPath: videoSavePath, VideoThumbnailUrl: bestThumbnailUrl, ErrorMessage: !fileExists ? "There was an error while trying to download video!" : "");
         }
         catch (Exception ex)
         {
-            return new VideoDownloadResult(false, "", "", $"There was an error while trying to download video! Additional info: {ex.Message}.");
+            return new VideoDownloadResult(false, "", "", "", $"There was an error while trying to download video! Additional info: {ex.Message}.");
         }
     }
 }

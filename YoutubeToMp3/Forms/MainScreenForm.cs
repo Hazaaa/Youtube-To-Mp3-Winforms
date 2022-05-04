@@ -61,7 +61,7 @@ namespace YoutubeToMp3.Forms
 
             progressBar.Increment(50);
 
-            ShowSuccessfullConvertDetails(convertResult.FilePath);
+            ShowSuccessfullConvertDetails(convertResult.FilePath, convertResult.FileThumbnailUrl);
         }
 
         private void InitializeTimer()
@@ -95,13 +95,13 @@ namespace YoutubeToMp3.Forms
             btnConvert.Enabled = !disabled;
         }
 
-        private void ShowSuccessfullConvertDetails(string filePath)
+        private void ShowSuccessfullConvertDetails(string filePath, string? fileThumbnail)
         {
             lblConvertStatus.Text = "YouTube video successfully converted!";
             lblConvertStatus.ForeColor = Color.Green;
             lblConvertStatus.Visible = true;
             lblAudioDetailsDivider.Visible = true;
-            PopulateAudioDetailsControls(filePath);
+            PopulateAudioDetailsControls(filePath, fileThumbnail);
             ToggleAudioDetailsControls(true);
         }
 
@@ -123,9 +123,10 @@ namespace YoutubeToMp3.Forms
             lblAudioBitRateText.Visible = showDetails;
             lblAudioSize.Visible = showDetails;
             lblAudioSizeText.Visible = showDetails;
+            pbxThumbnail.Visible = showDetails;
         }
 
-        private void PopulateAudioDetailsControls(string filePath)
+        private void PopulateAudioDetailsControls(string filePath, string? fileThumbnail)
         {
             Track audioFile = new Track(filePath);
             FileInfo fileInfo = new FileInfo(filePath);
@@ -133,6 +134,11 @@ namespace YoutubeToMp3.Forms
             lblAudioDurationText.Text = TimeHelpers.ConvertSecondToMinutes(audioFile.Duration);
             lblAudioBitRateText.Text = $"{audioFile.Bitrate}kbps";
             lblAudioSizeText.Text = $"{SizeHelpers.ConvertBytesToMegabytes(fileInfo.Length):N2}MB";
+
+            if (!string.IsNullOrWhiteSpace(fileThumbnail))
+            {
+                pbxThumbnail.Load(fileThumbnail);
+            }
         }
 
         private void ResetAllControls()
