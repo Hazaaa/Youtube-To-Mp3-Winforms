@@ -1,10 +1,7 @@
 # YouTube To Mp3
 "YouTube To Mp3" is desktop application for converting 'YouTube' and 'YouTube Music' videos to Mp3, developed in .Net 6 and Winforms.
 
-![Main screen](https://user-images.githubusercontent.com/36667491/166164782-555f4cb0-9be5-4cb8-890f-f9d701fa94f5.png)
-
-![Converted YT Video](https://user-images.githubusercontent.com/36667491/166164924-7ed51093-ffed-4371-b60b-5a8206b37d18.png)
-
+![Convetred YT Video](https://user-images.githubusercontent.com/36667491/168874393-5625cd91-9aa7-4fed-899e-ac834ffc4c46.png)
 
 **NOTICE:** This is just me working and experimenting with .Net 6 and different libraries. This app will not be used for anything except leveling up my coding skills and increasing my knowledge of .Net Core.
 
@@ -15,14 +12,14 @@
 ## TODO's:
  - Create installer.
  - Add tests.
- - Show video thumbnail (and maybe set it as cover).
+ - <del>Show video thumbnail (and maybe set it as cover).</del>
  - Add options for bit rates.
  - Add option for converting to different formats not just mp3.
- - Download video in memory and do convert on that.
  - Don't use ffmpeg.exe file.
- - Fix UI thread blocking.
+ - <del>Fix UI thread blocking.</del>
  - Make UI a little bit modern.
- - Fix displaying errors correctly.
+ - <del>Fix displaying errors correctly.</del>
+ - <del>Fix progress bar update.</del>
 
 ## Want to help?
 Have you found a bug? Or you just want to help and contribute?  
