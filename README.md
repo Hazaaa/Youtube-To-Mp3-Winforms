@@ -7,7 +7,10 @@
 
 ## Requirements:
  - This app is developed in .Net 6 so to run it you will need [.Net 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).  
- - For converting this app is using [FFmpeg](https://ffmpeg.org/download.html) so you will have to download it and place just ffmpeg.exe and place it inside of Resources folder of the app.  
+ - For converting this app is using [FFmpeg](https://ffmpeg.org/download.html) so you will have to download it and place just ffmpeg.exe and place it inside of Resources folder of the app.
+
+## Releases:
+ - [v1.0 - Portable Version](https://drive.google.com/file/d/1beEFgxKeNLtHQKA7TAfBwf89HcZnrokK/view?usp=sharing)
 
 ## TODO's:
  - Create installer.
