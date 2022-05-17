@@ -37,10 +37,12 @@ namespace YoutubeToMp3.Forms
             Progress<int> convertProgress = new();
             convertProgress.ProgressChanged += UpdateProgressBar;
 
+            DisableControls(true);
             ResetAllControls();
 
             if (string.IsNullOrEmpty(txbVideoUrl.Text))
             {
+                DisableControls(false);
                 ShowError("YouTube or YouTube Music video Url is required!");
                 txbVideoUrl.Focus();
                 return;
@@ -55,13 +57,14 @@ namespace YoutubeToMp3.Forms
 
             if (!convertResult.ConvertSuccessful)
             {
+                DisableControls(false);
                 ShowError(convertResult.ErrorMessage);
                 ResetProgressBar();
                 return;
             }
 
             progressBar.Increment(50);
-
+            DisableControls(false);
             ShowSuccessfullConvertDetails(convertResult.FilePath, convertResult.FileThumbnailUrl);
         }
 
@@ -189,7 +192,6 @@ namespace YoutubeToMp3.Forms
         private void ResetProgressBar()
         {
             progressBar.Value = 0;
-            progressBar.Update();
         }
 
         private void MoveErrorDivider(bool defaultPosition = false)
