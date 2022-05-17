@@ -15,6 +15,8 @@ namespace YoutubeToMp3.Forms
             InitializeTimer();
         }
 
+        #region Events
+
         private void btnSelectSavePath_Click(object sender, EventArgs e)
         {
             txtSavePath.Visible = false;
@@ -32,6 +34,9 @@ namespace YoutubeToMp3.Forms
 
         private async void btnConvert_ClickAsync(object sender, EventArgs e)
         {
+            Progress<int> convertProgress = new();
+            convertProgress.ProgressChanged += UpdateProgressBar;
+
             ResetAllControls();
 
             if (string.IsNullOrEmpty(txbVideoUrl.Text))
@@ -46,11 +51,7 @@ namespace YoutubeToMp3.Forms
                 fbdSavePath.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
 
-            progressBar.Increment(30);
-
-            var convertResult = await _converterService.ConvertYouTubeVideoToMp3Async(txbVideoUrl.Text, fbdSavePath.SelectedPath);
-
-            progressBar.Increment(20);
+            var convertResult = await _converterService.ConvertYouTubeVideoToMp3Async(txbVideoUrl.Text, fbdSavePath.SelectedPath, convertProgress);
 
             if (!convertResult.ConvertSuccessful)
             {
@@ -64,10 +65,9 @@ namespace YoutubeToMp3.Forms
             ShowSuccessfullConvertDetails(convertResult.FilePath, convertResult.FileThumbnailUrl);
         }
 
-        private void InitializeTimer()
+        private void UpdateProgressBar(object? sender, int e)
         {
-            timer.Tick += new EventHandler(timer_Tick!);
-            timer.Start();
+            progressBar.Value = e;
         }
 
         private async void timer_Tick(object sender, EventArgs e)
@@ -75,17 +75,48 @@ namespace YoutubeToMp3.Forms
             lblNoInternetConnection.Visible = false;
             bool isThereInternetConnection = await NetworkHelpers.CheckInternetConnectionAsync();
             pbxInternetConnection.Image = isThereInternetConnection ? Properties.Resources.InternetConnection : Properties.Resources.NoInternetConnection;
-        
+
             if (isThereInternetConnection)
             {
                 DisableControls(false);
                 pbxInternetConnection.Image = Properties.Resources.InternetConnection;
-            } else
+            }
+            else
             {
                 DisableControls(true);
                 lblNoInternetConnection.Visible = true;
                 pbxInternetConnection.Image = Properties.Resources.NoInternetConnection;
             }
+        }
+
+        private void pbxFoundABug_Click(object sender, EventArgs e)
+        {
+            OpenGitHubRepoIssuePage();
+        }
+
+        private void lblFoundABug_Click(object sender, EventArgs e)
+        {
+            OpenGitHubRepoIssuePage();
+        }
+
+        #endregion
+
+        #region Helpers Methods
+
+        private static void OpenGitHubRepoIssuePage()
+        {
+            var destinationurl = "https://github.com/Hazaaa/Youtube-To-Mp3/issues";
+            var sInfo = new System.Diagnostics.ProcessStartInfo(destinationurl)
+            {
+                UseShellExecute = true,
+            };
+            System.Diagnostics.Process.Start(sInfo);
+        }
+
+        private void InitializeTimer()
+        {
+            timer.Tick += new EventHandler(timer_Tick!);
+            timer.Start();
         }
 
         private void DisableControls(bool disabled)
@@ -100,7 +131,9 @@ namespace YoutubeToMp3.Forms
             lblConvertStatus.Text = "YouTube video successfully converted!";
             lblConvertStatus.ForeColor = Color.Green;
             lblConvertStatus.Visible = true;
-            lblAudioDetailsDivider.Visible = true;
+            pbxStatusIcon.Visible = true;
+            pbxStatusIcon.Image = Properties.Resources.Completed;
+            MoveErrorDivider();
             PopulateAudioDetailsControls(filePath, fileThumbnail);
             ToggleAudioDetailsControls(true);
         }
@@ -110,6 +143,9 @@ namespace YoutubeToMp3.Forms
             lblConvertStatus.Text = errorMessage;
             lblConvertStatus.ForeColor = Color.Firebrick;
             lblConvertStatus.Visible = true;
+            pbxStatusIcon.Visible = true;
+            pbxStatusIcon.Image = Properties.Resources.Error;
+            MoveErrorDivider();
         }
 
         private void ToggleAudioDetailsControls(bool showDetails)
@@ -124,6 +160,7 @@ namespace YoutubeToMp3.Forms
             lblAudioSize.Visible = showDetails;
             lblAudioSizeText.Visible = showDetails;
             pbxThumbnail.Visible = showDetails;
+            pbxStatusIcon.Visible = showDetails;
         }
 
         private void PopulateAudioDetailsControls(string filePath, string? fileThumbnail)
@@ -144,8 +181,8 @@ namespace YoutubeToMp3.Forms
         private void ResetAllControls()
         {
             lblConvertStatus.Visible = false;
-            lblAudioDetailsDivider.Visible = false;
             ResetProgressBar();
+            MoveErrorDivider(true);
             ToggleAudioDetailsControls(false);
         }
 
@@ -154,5 +191,20 @@ namespace YoutubeToMp3.Forms
             progressBar.Value = 0;
             progressBar.Update();
         }
+
+        private void MoveErrorDivider(bool defaultPosition = false)
+        {
+            var DEFAULT_ERROR_DIVIDER_POSITION = new Point(0, 166);
+
+            if (defaultPosition)
+            {
+                lblErrorDivider.Location = DEFAULT_ERROR_DIVIDER_POSITION;
+            } else
+            {
+                lblErrorDivider.Location = new Point(0, 190);
+            }
+        }
+
+        #endregion
     }
 }

@@ -17,12 +17,17 @@ internal class DownloadService
     /// </summary>
     /// <param name="url">YouTube video url.</param>
     /// <param name="savePath">Save path for downloaded video.</param>
+    /// <param name="progress">Progress object for reporting progress.</param>
     /// <returns><see cref="VideoDownloadResult"/> object with download result data.</returns>
-    public async Task<VideoDownloadResult> DownloadYouTubeVideoAsync(string url, string savePath)
+    public async Task<VideoDownloadResult> DownloadYouTubeVideoAsync(string url, string savePath, IProgress<int> progress)
     {
         try
         {
-            var videoMetadata = await _youtubeClient.Videos.GetAsync(url);
+            progress.Report(10);
+
+            var videoMetadata = await _youtubeClient.Videos.GetAsync(url).ConfigureAwait(false);
+
+            progress.Report(20);
 
             if (videoMetadata == null)
             {
@@ -31,18 +36,24 @@ internal class DownloadService
 
             var videoSavePath = $@"{savePath}\{videoMetadata.Title}.mp4";
 
-            var streamManifest = await _youtubeClient.Videos.Streams.GetManifestAsync(url);
+            var streamManifest = await _youtubeClient.Videos.Streams.GetManifestAsync(url).ConfigureAwait(false);
+
+            progress.Report(30);
 
             var audioStream = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
 
-            var realStream = await _youtubeClient.Videos.Streams.GetAsync(audioStream);
+            var realStream = await _youtubeClient.Videos.Streams.GetAsync(audioStream).ConfigureAwait(false);
 
-            await _youtubeClient.Videos.Streams.DownloadAsync(audioStream, videoSavePath);
+            progress.Report(40);
+
+            await _youtubeClient.Videos.Streams.DownloadAsync(audioStream, videoSavePath).ConfigureAwait(false);
+
+            progress.Report(50);
 
             bool fileExists = File.Exists(videoSavePath);
 
             // Getting additional metadata.
-            var bestThumbnailUrl = videoMetadata.Thumbnails.OrderByDescending(thumb => thumb.Resolution.Area).FirstOrDefault()?.Url;
+            var bestThumbnailUrl = videoMetadata.Thumbnails.Where(vm => !vm.Url.Contains(".webp")).OrderByDescending(thumb => thumb.Resolution.Area).FirstOrDefault()?.Url;
 
             return new VideoDownloadResult(DownloadSuccessful: fileExists, VideoTitle: videoMetadata.Title, VideoPath: videoSavePath, VideoThumbnailUrl: bestThumbnailUrl, ErrorMessage: !fileExists ? "There was an error while trying to download video!" : "");
         }

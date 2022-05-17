@@ -39,14 +39,13 @@
             this.txtSavePath = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblErrorDivider = new System.Windows.Forms.Label();
             this.btnConvert = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblConvertStatus = new System.Windows.Forms.Label();
             this.pbxInternetConnection = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.lblNoInternetConnection = new System.Windows.Forms.Label();
-            this.lblAudioDetailsDivider = new System.Windows.Forms.Label();
             this.lblAudioDetails = new System.Windows.Forms.Label();
             this.lblAudioTitle = new System.Windows.Forms.Label();
             this.lblAudioTitleText = new System.Windows.Forms.Label();
@@ -54,15 +53,17 @@
             this.lblAudioDuration = new System.Windows.Forms.Label();
             this.lblAudioBitRateText = new System.Windows.Forms.Label();
             this.lblAudioBitRate = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblFoundBug = new System.Windows.Forms.Label();
+            this.pbxFoundABug = new System.Windows.Forms.PictureBox();
+            this.lblFoundABug = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblAudioSizeText = new System.Windows.Forms.Label();
             this.lblAudioSize = new System.Windows.Forms.Label();
             this.pbxThumbnail = new System.Windows.Forms.PictureBox();
+            this.pbxStatusIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbxInternetConnection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxFoundABug)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxThumbnail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxStatusIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // lblUrl
@@ -88,9 +89,9 @@
             this.lblHint.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblHint.Location = new System.Drawing.Point(15, 44);
             this.lblHint.Name = "lblHint";
-            this.lblHint.Size = new System.Drawing.Size(230, 12);
+            this.lblHint.Size = new System.Drawing.Size(232, 12);
             this.lblHint.TabIndex = 2;
-            this.lblHint.Text = "*You can use YouTube or YouTube Music video Url";
+            this.lblHint.Text = "*You can use YouTube or YouTube Music video Url.";
             // 
             // lblSavePath
             // 
@@ -132,9 +133,10 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(15, 104);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 12);
+            this.label1.Size = new System.Drawing.Size(533, 12);
             this.label1.TabIndex = 6;
-            this.label1.Text = "*Default save path is Desktop";
+            this.label1.Text = "*Default save path is Desktop (in same path temporary .mp4 file will be downloade" +
+    "d but after conversion will be deleted).";
             // 
             // label2
             // 
@@ -147,15 +149,16 @@
             this.label2.Text = "_________________________________________________________________________________" +
     "____________________________________________________________";
             // 
-            // label3
+            // lblErrorDivider
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Firebrick;
-            this.label3.Location = new System.Drawing.Point(0, 166);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(712, 15);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "_________________________________________________________________________________" +
+            this.lblErrorDivider.AutoSize = true;
+            this.lblErrorDivider.BackColor = System.Drawing.Color.Transparent;
+            this.lblErrorDivider.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblErrorDivider.Location = new System.Drawing.Point(0, 166);
+            this.lblErrorDivider.Name = "lblErrorDivider";
+            this.lblErrorDivider.Size = new System.Drawing.Size(712, 15);
+            this.lblErrorDivider.TabIndex = 8;
+            this.lblErrorDivider.Text = "_________________________________________________________________________________" +
     "____________________________________________________________";
             // 
             // btnConvert
@@ -174,9 +177,9 @@
             // progressBar
             // 
             this.progressBar.ForeColor = System.Drawing.Color.Firebrick;
-            this.progressBar.Location = new System.Drawing.Point(145, 144);
+            this.progressBar.Location = new System.Drawing.Point(147, 144);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(557, 23);
+            this.progressBar.Size = new System.Drawing.Size(520, 23);
             this.progressBar.Step = 2;
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 10;
@@ -184,9 +187,11 @@
             // lblConvertStatus
             // 
             this.lblConvertStatus.AutoSize = true;
+            this.lblConvertStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblConvertStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblConvertStatus.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblConvertStatus.Location = new System.Drawing.Point(4, 186);
+            this.lblConvertStatus.Location = new System.Drawing.Point(4, 176);
+            this.lblConvertStatus.MaximumSize = new System.Drawing.Size(725, 0);
             this.lblConvertStatus.Name = "lblConvertStatus";
             this.lblConvertStatus.Size = new System.Drawing.Size(0, 21);
             this.lblConvertStatus.TabIndex = 11;
@@ -216,23 +221,11 @@
             this.lblNoInternetConnection.Text = "No Internet Connection!";
             this.lblNoInternetConnection.Visible = false;
             // 
-            // lblAudioDetailsDivider
-            // 
-            this.lblAudioDetailsDivider.AutoSize = true;
-            this.lblAudioDetailsDivider.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblAudioDetailsDivider.Location = new System.Drawing.Point(0, 208);
-            this.lblAudioDetailsDivider.Name = "lblAudioDetailsDivider";
-            this.lblAudioDetailsDivider.Size = new System.Drawing.Size(712, 15);
-            this.lblAudioDetailsDivider.TabIndex = 14;
-            this.lblAudioDetailsDivider.Text = "_________________________________________________________________________________" +
-    "____________________________________________________________";
-            this.lblAudioDetailsDivider.Visible = false;
-            // 
             // lblAudioDetails
             // 
             this.lblAudioDetails.AutoSize = true;
             this.lblAudioDetails.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioDetails.Location = new System.Drawing.Point(12, 231);
+            this.lblAudioDetails.Location = new System.Drawing.Point(12, 210);
             this.lblAudioDetails.Name = "lblAudioDetails";
             this.lblAudioDetails.Size = new System.Drawing.Size(126, 25);
             this.lblAudioDetails.TabIndex = 15;
@@ -243,7 +236,7 @@
             // 
             this.lblAudioTitle.AutoSize = true;
             this.lblAudioTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioTitle.Location = new System.Drawing.Point(34, 267);
+            this.lblAudioTitle.Location = new System.Drawing.Point(34, 246);
             this.lblAudioTitle.Name = "lblAudioTitle";
             this.lblAudioTitle.Size = new System.Drawing.Size(42, 21);
             this.lblAudioTitle.TabIndex = 16;
@@ -254,7 +247,7 @@
             // 
             this.lblAudioTitleText.AutoSize = true;
             this.lblAudioTitleText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioTitleText.Location = new System.Drawing.Point(79, 267);
+            this.lblAudioTitleText.Location = new System.Drawing.Point(79, 246);
             this.lblAudioTitleText.Name = "lblAudioTitleText";
             this.lblAudioTitleText.Size = new System.Drawing.Size(106, 21);
             this.lblAudioTitleText.TabIndex = 17;
@@ -265,7 +258,7 @@
             // 
             this.lblAudioDurationText.AutoSize = true;
             this.lblAudioDurationText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioDurationText.Location = new System.Drawing.Point(79, 297);
+            this.lblAudioDurationText.Location = new System.Drawing.Point(79, 276);
             this.lblAudioDurationText.Name = "lblAudioDurationText";
             this.lblAudioDurationText.Size = new System.Drawing.Size(138, 21);
             this.lblAudioDurationText.TabIndex = 21;
@@ -276,7 +269,7 @@
             // 
             this.lblAudioDuration.AutoSize = true;
             this.lblAudioDuration.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioDuration.Location = new System.Drawing.Point(2, 297);
+            this.lblAudioDuration.Location = new System.Drawing.Point(2, 276);
             this.lblAudioDuration.Name = "lblAudioDuration";
             this.lblAudioDuration.Size = new System.Drawing.Size(74, 21);
             this.lblAudioDuration.TabIndex = 20;
@@ -287,7 +280,7 @@
             // 
             this.lblAudioBitRateText.AutoSize = true;
             this.lblAudioBitRateText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioBitRateText.Location = new System.Drawing.Point(79, 327);
+            this.lblAudioBitRateText.Location = new System.Drawing.Point(79, 306);
             this.lblAudioBitRateText.Name = "lblAudioBitRateText";
             this.lblAudioBitRateText.Size = new System.Drawing.Size(130, 21);
             this.lblAudioBitRateText.TabIndex = 23;
@@ -298,31 +291,35 @@
             // 
             this.lblAudioBitRate.AutoSize = true;
             this.lblAudioBitRate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioBitRate.Location = new System.Drawing.Point(14, 327);
+            this.lblAudioBitRate.Location = new System.Drawing.Point(14, 306);
             this.lblAudioBitRate.Name = "lblAudioBitRate";
             this.lblAudioBitRate.Size = new System.Drawing.Size(62, 21);
             this.lblAudioBitRate.TabIndex = 22;
             this.lblAudioBitRate.Text = "Bit rate:";
             this.lblAudioBitRate.Visible = false;
             // 
-            // pictureBox1
+            // pbxFoundABug
             // 
-            this.pictureBox1.Image = global::YoutubeToMp3.Properties.Resources.Bug;
-            this.pictureBox1.Location = new System.Drawing.Point(4, 404);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 24;
-            this.pictureBox1.TabStop = false;
+            this.pbxFoundABug.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbxFoundABug.Image = global::YoutubeToMp3.Properties.Resources.Bug;
+            this.pbxFoundABug.Location = new System.Drawing.Point(4, 404);
+            this.pbxFoundABug.Name = "pbxFoundABug";
+            this.pbxFoundABug.Size = new System.Drawing.Size(23, 23);
+            this.pbxFoundABug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxFoundABug.TabIndex = 24;
+            this.pbxFoundABug.TabStop = false;
+            this.pbxFoundABug.Click += new System.EventHandler(this.pbxFoundABug_Click);
             // 
-            // lblFoundBug
+            // lblFoundABug
             // 
-            this.lblFoundBug.AutoSize = true;
-            this.lblFoundBug.Location = new System.Drawing.Point(34, 408);
-            this.lblFoundBug.Name = "lblFoundBug";
-            this.lblFoundBug.Size = new System.Drawing.Size(70, 15);
-            this.lblFoundBug.TabIndex = 25;
-            this.lblFoundBug.Text = "Found bug?";
+            this.lblFoundABug.AutoSize = true;
+            this.lblFoundABug.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFoundABug.Location = new System.Drawing.Point(34, 408);
+            this.lblFoundABug.Name = "lblFoundABug";
+            this.lblFoundABug.Size = new System.Drawing.Size(79, 15);
+            this.lblFoundABug.TabIndex = 25;
+            this.lblFoundABug.Text = "Found a bug?";
+            this.lblFoundABug.Click += new System.EventHandler(this.lblFoundABug_Click);
             // 
             // label5
             // 
@@ -339,7 +336,7 @@
             // 
             this.lblAudioSizeText.AutoSize = true;
             this.lblAudioSizeText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioSizeText.Location = new System.Drawing.Point(79, 357);
+            this.lblAudioSizeText.Location = new System.Drawing.Point(79, 336);
             this.lblAudioSizeText.Name = "lblAudioSizeText";
             this.lblAudioSizeText.Size = new System.Drawing.Size(105, 21);
             this.lblAudioSizeText.TabIndex = 28;
@@ -350,7 +347,7 @@
             // 
             this.lblAudioSize.AutoSize = true;
             this.lblAudioSize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAudioSize.Location = new System.Drawing.Point(35, 357);
+            this.lblAudioSize.Location = new System.Drawing.Point(35, 336);
             this.lblAudioSize.Name = "lblAudioSize";
             this.lblAudioSize.Size = new System.Drawing.Size(41, 21);
             this.lblAudioSize.TabIndex = 27;
@@ -359,13 +356,24 @@
             // 
             // pbxThumbnail
             // 
-            this.pbxThumbnail.Location = new System.Drawing.Point(545, 231);
+            this.pbxThumbnail.Location = new System.Drawing.Point(520, 214);
             this.pbxThumbnail.Name = "pbxThumbnail";
-            this.pbxThumbnail.Size = new System.Drawing.Size(150, 150);
+            this.pbxThumbnail.Size = new System.Drawing.Size(170, 170);
             this.pbxThumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxThumbnail.TabIndex = 29;
             this.pbxThumbnail.TabStop = false;
             this.pbxThumbnail.Visible = false;
+            // 
+            // pbxStatusIcon
+            // 
+            this.pbxStatusIcon.Image = global::YoutubeToMp3.Properties.Resources.Completed;
+            this.pbxStatusIcon.Location = new System.Drawing.Point(675, 141);
+            this.pbxStatusIcon.Name = "pbxStatusIcon";
+            this.pbxStatusIcon.Size = new System.Drawing.Size(28, 28);
+            this.pbxStatusIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxStatusIcon.TabIndex = 30;
+            this.pbxStatusIcon.TabStop = false;
+            this.pbxStatusIcon.Visible = false;
             // 
             // MainScreenForm
             // 
@@ -373,12 +381,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(714, 432);
+            this.Controls.Add(this.pbxStatusIcon);
             this.Controls.Add(this.pbxThumbnail);
             this.Controls.Add(this.lblAudioSizeText);
             this.Controls.Add(this.lblAudioSize);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.lblFoundBug);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblFoundABug);
+            this.Controls.Add(this.pbxFoundABug);
             this.Controls.Add(this.lblAudioBitRateText);
             this.Controls.Add(this.lblAudioBitRate);
             this.Controls.Add(this.lblAudioDurationText);
@@ -386,13 +395,12 @@
             this.Controls.Add(this.lblAudioTitleText);
             this.Controls.Add(this.lblAudioTitle);
             this.Controls.Add(this.lblAudioDetails);
-            this.Controls.Add(this.lblAudioDetailsDivider);
             this.Controls.Add(this.lblNoInternetConnection);
             this.Controls.Add(this.pbxInternetConnection);
             this.Controls.Add(this.lblConvertStatus);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnConvert);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblErrorDivider);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSavePath);
@@ -407,8 +415,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "YouTube To Mp3";
             ((System.ComponentModel.ISupportInitialize)(this.pbxInternetConnection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxFoundABug)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxThumbnail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxStatusIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,14 +434,13 @@
         private Label txtSavePath;
         private Label label1;
         private Label label2;
-        private Label label3;
+        private Label lblErrorDivider;
         private Button btnConvert;
         private ProgressBar progressBar;
         private Label lblConvertStatus;
         private PictureBox pbxInternetConnection;
         private System.Windows.Forms.Timer timer;
         private Label lblNoInternetConnection;
-        private Label lblAudioDetailsDivider;
         private Label lblAudioDetails;
         private Label lblAudioTitle;
         private Label lblAudioTitleText;
@@ -440,11 +448,12 @@
         private Label lblAudioDuration;
         private Label lblAudioBitRateText;
         private Label lblAudioBitRate;
-        private PictureBox pictureBox1;
-        private Label lblFoundBug;
+        private PictureBox pbxFoundABug;
+        private Label lblFoundABug;
         private Label label5;
         private Label lblAudioSizeText;
         private Label lblAudioSize;
         private PictureBox pbxThumbnail;
+        private PictureBox pbxStatusIcon;
     }
 }

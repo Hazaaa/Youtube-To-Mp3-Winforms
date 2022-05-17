@@ -17,12 +17,13 @@ public class ConverterService
     /// </summary>
     /// <param name="videoUrl">Url of YouTube video.</param>
     /// <param name="savePath">Save path for mp3.</param>
+    /// <param name="progress">Progress object for reporting progress.</param>
     /// <returns><see cref="VideoConvertResult"/> object with convert result data.</returns>
-    public async Task<VideoConvertResult> ConvertYouTubeVideoToMp3Async(string videoUrl, string savePath)
+    public async Task<VideoConvertResult> ConvertYouTubeVideoToMp3Async(string videoUrl, string savePath, IProgress<int> progress)
     {
         try
         {
-            var videoDownloadResult = await _downloadService.DownloadYouTubeVideoAsync(videoUrl, savePath);
+            var videoDownloadResult = await _downloadService.DownloadYouTubeVideoAsync(videoUrl, savePath, progress).ConfigureAwait(false);
 
             if (!videoDownloadResult.DownloadSuccessful)
             {
@@ -31,7 +32,7 @@ public class ConverterService
 
             var mp3SavePath = $@"{savePath}\{videoDownloadResult.VideoTitle}.mp3";
 
-            ConvertMp4ToMp3File(videoDownloadResult.VideoPath, mp3SavePath);
+            await Task.Run(() => ConvertMp4ToMp3File(videoDownloadResult.VideoPath, mp3SavePath)).ConfigureAwait(false);
 
             if (!File.Exists(mp3SavePath))
             {
@@ -39,7 +40,11 @@ public class ConverterService
                 return new VideoConvertResult(false, "", "", "There was an error while trying to convert YouTube video! Please check video Url and try again!");
             }
 
+            progress.Report(90);
+
             DeleteDownloadedVideo(videoDownloadResult.VideoPath);
+
+            progress.Report(100);
 
             return new VideoConvertResult(true, FilePath: mp3SavePath, FileThumbnailUrl: videoDownloadResult.VideoThumbnailUrl, "");
         }
@@ -99,7 +104,7 @@ public class ConverterService
     /// Deletes temporary downloaded video.
     /// </summary>
     /// <param name="videoPath">Path to downloaded video.</param>
-    private void DeleteDownloadedVideo(string videoPath)
+    private static void DeleteDownloadedVideo(string videoPath)
     {
         if (File.Exists(videoPath))
         {
