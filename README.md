@@ -23,6 +23,8 @@
  - Make UI a little bit modern.
  - <del>Fix displaying errors correctly.</del>
  - <del>Fix progress bar update.</del>
+ - Add option to just download video.
+ - Fix: If name of video has white spaces error occures.
 
 ## Want to help?
 Have you found a bug? Or you just want to help and contribute?  
