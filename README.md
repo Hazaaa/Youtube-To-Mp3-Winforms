@@ -13,17 +13,22 @@
  - [v1.0 - Portable Version](https://drive.google.com/file/d/1beEFgxKeNLtHQKA7TAfBwf89HcZnrokK/view?usp=sharing)
 
 ## TODO's:
+
+### Features:
  - Create installer.
  - Add tests.
- - <del>Show video thumbnail (and maybe set it as cover).</del>
  - Add options for bit rates.
  - Add option for converting to different formats not just mp3.
- - Don't use ffmpeg.exe file.
- - <del>Fix UI thread blocking.</del>
+ - Add option to also save downloaded video.
+ - Add option to choose thumbnail from internet.
+ - Add option to change tags on file.
  - Make UI a little bit modern.
+ - <del>Fix UI thread blocking.</del>
  - <del>Fix displaying errors correctly.</del>
  - <del>Fix progress bar update.</del>
- - Add option to just download video.
+ - <del>Show video thumbnail (and maybe set it as cover).</del>
+
+### Bugs:
  - Fix: If name of video has white spaces error occures.
 
 ## Want to help?
